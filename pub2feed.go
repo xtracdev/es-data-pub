@@ -2,11 +2,11 @@ package esdatapub
 
 import (
 	"fmt"
-	log "github.com/Sirupsen/logrus"
-	_ "github.com/mattn/go-oci8"
-	"github.com/xtracdev/orapub"
 	"os"
 	"strings"
+
+	log "github.com/Sirupsen/logrus"
+	"github.com/xtracdev/orapub"
 )
 
 var connectStr string
