@@ -3,6 +3,7 @@ package esdatapub
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	log "github.com/Sirupsen/logrus"
@@ -49,9 +50,16 @@ func init() {
 }
 
 func ProcessEventRecords() error {
+	maxTriesEnv := os.Getenv("DB_MAX_TRIES")
+	var maxTries int
+	if maxTries, err := strconv.Atoi(maxTriesEnv); err == nil {
+		log.Debugf("max database reconnections set to %v", maxTries)
+	} else {
+		maxTries = 5
+	}
 
 	publisher := new(orapub.OraPub)
-	err := publisher.Connect(connectStr, 5)
+	err := publisher.Connect(connectStr, maxTries)
 	if err != nil {
 		log.Warnf("Unable to connect publisher reader")
 		return err
