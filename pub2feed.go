@@ -52,7 +52,8 @@ func init() {
 func ProcessEventRecords() error {
 	maxTriesEnv := os.Getenv("DB_MAX_TRIES")
 	var maxTries int
-	if maxTries, err := strconv.Atoi(maxTriesEnv); err == nil {
+	if mt, err := strconv.Atoi(maxTriesEnv); err == nil {
+		maxTries = mt
 		log.Debugf("max database reconnections set to %v", maxTries)
 	} else {
 		maxTries = 5
