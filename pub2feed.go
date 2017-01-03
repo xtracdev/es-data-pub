@@ -50,6 +50,19 @@ func init() {
 }
 
 func ProcessEventRecords() error {
+	publisher, err := GetInitializedPublisher()
+	if err != nil {
+		return err
+	}
+
+	publisher.ProcessEvents(true)
+
+	return nil
+}
+
+// Returning publisher to user so that they are able to
+// perform fine-grained operations including health check
+func GetInitializedPublisher() (*orapub.OraPub, error) {
 	maxTriesEnv := os.Getenv("DB_MAX_TRIES")
 	var maxTries int
 	if mt, err := strconv.Atoi(maxTriesEnv); err == nil {
@@ -63,15 +76,13 @@ func ProcessEventRecords() error {
 	err := publisher.Connect(connectStr, maxTries)
 	if err != nil {
 		log.Warnf("Unable to connect publisher reader")
-		return err
+		return nil, err
 	}
 
 	err = publisher.InitializeProcessors()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	publisher.ProcessEvents(true)
-
-	return nil
+	return publisher, nil
 }
