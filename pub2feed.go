@@ -60,6 +60,22 @@ func ProcessEventRecords() error {
 	return nil
 }
 
+func ProcessNEvents(n int) error {
+	publisher, err := GetInitializedPublisher()
+	if err != nil {
+		return err
+	}
+
+	log.Infof("processing %d events", n)
+	for i := 0; i < n; i++ {
+		publisher.ProcessEvents(false)
+	}
+
+	log.Info("finished")
+
+	return nil
+}
+
 // Returning publisher to user so that they are able to
 // perform fine-grained operations including health check
 func GetInitializedPublisher() (*orapub.OraPub, error) {
