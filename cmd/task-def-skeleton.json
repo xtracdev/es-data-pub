@@ -1,0 +1,45 @@
+{
+  "family": "pubevents",
+  "containerDefinitions": [
+    {
+      "name": "pubevents",
+      "image": "xtracdev/pubevents",
+      "cpu": 128 ,
+      "memory": 128,
+      "essential": true,
+      "command": [
+        "5"
+      ],
+      "environment": [
+        {
+          "name": "DB_USER",
+          "value": "xxx"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "value": "xxx"
+        },
+        {
+          "name": "DB_HOST",
+          "value": "xxx"
+        },
+        {
+          "name": "DB_PORT",
+          "value": "xxx"
+        },
+        {
+          "name": "DB_SVC",
+          "value": "xxx"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "ECSLogGroup-atompub",
+          "awslogs-region":"us-west-1",
+          "awslogs-stream-prefix": "eventpub"
+        }
+      }
+    }
+  ]
+}

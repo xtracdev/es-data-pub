@@ -11,7 +11,7 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		log.Fatalf("Usage: go run %s <num events to process>")
+		log.Fatalf("Usage: go run %s <num event pub loops to process>")
 	}
 
 	numEvents, err := strconv.Atoi(os.Args[1])
